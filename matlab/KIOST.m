@@ -27,9 +27,7 @@ label0 = multibandread('2013_0808_label0', [7921 7771 1], ...
 label1 = multibandread('2013_0808_label1', [7921 7771 1], ...
     'int8', 0 ,'bsq','ieee-le');
 
-label = label1 + 0.5*label0;
 
-clear label0 label1
 %% Calculate angle
 
 AD = sqrt(3885^2 + 3950^2);
@@ -40,6 +38,7 @@ theta1 = acos(AB/AD);
 theta2 = acos(AB/AC);
 
 theta = (theta1 - theta2)*180/pi;
+
 %% Rotate Image
 result1 = imrotate(result1, theta, 'bilinear', 'crop');
 result1(result1 < 0) = 0;
@@ -47,17 +46,49 @@ result1(result1 < 0) = 0;
 result2 = imrotate(result2, theta, 'bilinear', 'crop');
 result2(result2 < 0) = 0;
 
-label = imrotate(label, theta, 'bilinear', 'crop');
-label(label < 0) = 0;
+label0 = imrotate(label0, theta, 'bilinear', 'crop');
+label0(label0 > 0) = 0.5;
 
+label1 = imrotate(label1, theta, 'bilinear', 'crop');
+label1(label1 > 0) = 1;
+
+label = label1 + label0;
+
+clear label0 label1
 %% Crop Image
-result1 = imcrop(result1, [688 710 6345 6572]);
-result2 = imcrop(result2, [688 710 6345 6572]);
-label = imcrop(label, [688 710 6345 6572]);
+result1 = imcrop(result1, [2271 1046 3071 3071]);
+result2 = imcrop(result2, [2271 1046 3071 3071]);
+label = imcrop(label, [2271 1046 3071 3071]);
 
-%% Make dataset
-for i=1:6446
-    for j = 6219
-        imwrite(label([i:i+127],[j:j+127]), sprintf('red%05d.jpg',i));
+%% Make label dataset
+% in 'label' folder 
+k=1;
+
+for i=1:23:2945
+    for j = 1:23:2945
+        imwrite(imcrop(label,[i j 127 127]), sprintf('red%05d.jpg',k));
+        k = k + 1;
+    end
+end
+
+%% Make result1 dataset
+% in 'result1' folder
+k=1;
+
+for i=1:23:2945
+    for j = 1:23:2945
+        imwrite(imcrop(result1,[i j 127 127]), sprintf('red%05d.jpg',k));
+        k = k + 1;
+    end
+end
+
+%% Make result2 dataset
+% in 'result2' folder
+k=1;
+
+for i=1:23:2945
+    for j = 1:23:2945
+        imwrite(imcrop(result2,[i j 127 127]), sprintf('red%05d.jpg',k));
+        k = k + 1;
     end
 end
