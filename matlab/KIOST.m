@@ -56,9 +56,9 @@ label = label1 + label0;
 
 clear label0 label1
 %% Crop Image
-result1 = imcrop(result1, [2271 1046 3071 3071]);
-result2 = imcrop(result2, [2271 1046 3071 3071]);
-label = imcrop(label, [2271 1046 3071 3071]);
+train1 = imcrop(result1, [2271 1046 3071 3071]);
+train2 = imcrop(result2, [2271 1046 3071 3071]);
+trainannot = imcrop(label, [2271 1046 3071 3071]);
 
 %% Make label dataset
 % in 'label' folder 
@@ -66,7 +66,7 @@ k=1;
 
 for i=1:23:2945
     for j = 1:23:2945
-        imwrite(imcrop(label,[i j 127 127]), sprintf('red%05d.jpg',k));
+        imwrite(imcrop(trainannot,[i j 127 127]), sprintf('red%05d.jpg',k));
         k = k + 1;
     end
 end
@@ -77,7 +77,7 @@ k=1;
 
 for i=1:23:2945
     for j = 1:23:2945
-        imwrite(imcrop(result1,[i j 127 127]), sprintf('red%05d.jpg',k));
+        imwrite(imcrop(train1,[i j 127 127]), sprintf('red%05d.jpg',k));
         k = k + 1;
     end
 end
@@ -88,7 +88,46 @@ k=1;
 
 for i=1:23:2945
     for j = 1:23:2945
-        imwrite(imcrop(result2,[i j 127 127]), sprintf('red%05d.jpg',k));
+        imwrite(imcrop(train2,[i j 127 127]), sprintf('red%05d.jpg',k));
+        k = k + 1;
+    end
+end
+
+%% Test set
+
+%% Crop image
+test1 = imcrop(result1, [5226 2217 311 311]);
+test2 = imcrop(result2, [5226 2217 311 311]);
+testannot = imcrop(label, [5226 2217 311 311]);
+%% Make label dataset
+% in 'label' folder 
+k=1;
+
+for i=1:8:185
+    for j = 1:8:185
+        imwrite(imcrop(testannot,[i j 127 127]), sprintf('red%05d.jpg',k));
+        k = k + 1;
+    end
+end
+
+%% Make result1 dataset
+% in 'result1' folder
+k=1;
+
+for i=1:8:185
+    for j = 1:8:185
+        imwrite(imcrop(test1,[i j 127 127]), sprintf('red%05d.jpg',k));
+        k = k + 1;
+    end
+end
+
+%% Make result2 dataset
+% in 'result2' folder
+k=1;
+
+for i=1:8:185
+    for j = 1:8:185
+        imwrite(imcrop(test2,[i j 127 127]), sprintf('red%05d.jpg',k));
         k = k + 1;
     end
 end
