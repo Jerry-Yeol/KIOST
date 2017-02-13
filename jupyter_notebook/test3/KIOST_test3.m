@@ -24,16 +24,19 @@ for i = 1:size(col,1)
     ref(col(i),row(i),:) = 0;
 end
 %% Make data
-reref(:,:,1) = ((ref(:,:,1)+ref(:,:,2))/2 + ref(:,:,3) + ref(:,:,4))/3;
-reref(:,:,2) = ref(:,:,5);
-reref(:,:,3) = ref(:,:,6);
-reref(:,:,4) = ref(:,:,7);
+reref(:,:,1) = ref(:,:,1);
+reref(:,:,2) = ref(:,:,2);
+reref(:,:,3) = ref(:,:,3);
+reref(:,:,4) = ref(:,:,4);
+reref(:,:,5) = ref(:,:,5);
+reref(:,:,6) = ref(:,:,6);
+reref(:,:,7) = ref(:,:,7);
 
 ref = reref;
 
 clear reref
 
-for i=1:4
+for i=1:7
     cropref(:,:,i) = imcrop(ref(:,:,i), [4817 3900 188 188]);
     testimage(:,i) = reshape(cropref(:,:,i), [size(cropref,1)*size(cropref,2), 1]);
     
