@@ -59,7 +59,7 @@ trainlabel(:,2) = reshape(label, [size(label,1)*size(label,2), 1]);
 trainlabel(:,1) = ~trainlabel(:,2);
 
 %% Save as '.mat'
-save('testimg.mat', 'testimage');
-save('testimg2.mat', 'testimage2');
-save('testlabel.mat', 'testlabel');
-save('testlabel2.mat', 'testlabel2');
+save('testimg.mat', 'cropref');
+save('trainimg.mat', 'cropref2');
+save('testlabel.mat', 'croplab');
+save('trainlabel.mat', 'croplab2');
