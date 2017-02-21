@@ -1,0 +1,2 @@
+model_checkpoint_path: "D:\\Windows\\Downloads\\University\\Senior\\KIOST\\image/checkpoint_Adagrad/mymodel"
+all_model_checkpoint_paths: "D:\\Windows\\Downloads\\University\\Senior\\KIOST\\image/checkpoint_Adagrad/mymodel"
